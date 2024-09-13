@@ -29,7 +29,8 @@ def product_list(request):
 
             serializer.save()
 
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_204_NO_CONTENT)
         
 
 
@@ -49,10 +50,13 @@ def product(request,pk):
         serializer = ProductSerializer(product)
 
         return Response(serializer.data)
+    
+    
+
 
     
 
-    if request.method == 'PUT':
+    elif request.method == 'PUT':
 
         serializer = ProductSerializer(product, data=request.data)
 
@@ -61,4 +65,13 @@ def product(request,pk):
             serializer.save()
 
             return Response(serializer.data)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    elif request.method == 'DELETE':
+
+        product.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+        
 
