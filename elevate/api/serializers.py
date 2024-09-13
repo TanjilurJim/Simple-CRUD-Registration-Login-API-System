@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from . models import Product
 
-class ProducSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
