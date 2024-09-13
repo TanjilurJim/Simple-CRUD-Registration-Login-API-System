@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 @api_view(['GET','POST'])
-def product_list(request):
+def product_list(request, format=None):
 
     if request.method == 'GET':
 
@@ -35,7 +35,7 @@ def product_list(request):
 
 
 @api_view(['GET','PUT','DELETE'])
-def product(request,pk): 
+def product(request,pk, format = None): 
 
     try:
 
