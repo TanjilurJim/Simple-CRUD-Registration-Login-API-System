@@ -107,3 +107,15 @@ def register(request):
         return Response(data)
 
              
+def home(request):
+    return render(request, 'api/index.html')
+
+def products(request):
+
+    products = Product.objects.all()
+    
+    # Serialize the products
+    serializer = ProductSerializer(products, many=True)
+    
+    # Pass the serialized products data to the template
+    return render(request, 'api/products.html', {'products': serializer.data})
