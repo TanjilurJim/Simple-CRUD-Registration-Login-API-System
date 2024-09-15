@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework . response import Response
 from . models import Product
-from . serializers import ProductSerializer
+from . serializers import ProductSerializer, RegistrationSerializer
 from rest_framework.decorators import api_view
 
 from rest_framework import status
@@ -75,3 +75,26 @@ def product(request,pk, format = None):
 
         
 
+
+
+@api_view(['POST'])
+def register(request):
+    if request.method == 'POST' :
+
+        serializer = RegistrationSerializer(data=request.data)
+
+        data = {}
+
+        if serializer.is_valid():
+
+            user = serializer.save()
+
+            data['response'] = 'Successfully registered a new user!'
+
+        else:
+
+            data = serializer.errors
+        
+        return Response(data)
+
+             
