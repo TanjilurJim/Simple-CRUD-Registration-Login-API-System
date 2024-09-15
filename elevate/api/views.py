@@ -8,6 +8,9 @@ from rest_framework.decorators import api_view
 
 from rest_framework import status
 
+from rest_framework.authtoken.models import Token
+
+
 @api_view(['GET','POST'])
 def product_list(request, format=None):
 
@@ -79,7 +82,7 @@ def product(request,pk, format = None):
 
 @api_view(['POST'])
 def register(request):
-    if request.method == 'POST' :
+    if request.method == 'POST':
 
         serializer = RegistrationSerializer(data=request.data)
 
@@ -90,6 +93,12 @@ def register(request):
             user = serializer.save()
 
             data['response'] = 'Successfully registered a new user!'
+
+            #####
+
+            auth_token = Token.objects.get(user=user).key
+
+            data['auth_token'] = auth_token
 
         else:
 
